@@ -38,9 +38,9 @@
                 </div>
 
                 <button type="submit" class="w-full py-3 rounded-xl font-semibold transition"
-                        style="background-color: #000000; color: #FFFFFF;"
+                        style="background-color: #940000; color: #FFFFFF;"
                         onmouseover="this.style.backgroundColor='#1F2937'"
-                        onmouseout="this.style.backgroundColor='#000000'">
+                        onmouseout="this.style.backgroundColor='#940000'">
                     LOGIN
                 </button>
 
@@ -58,30 +58,25 @@
                         <img src="https://www.svgrepo.com/show/475656/google-color.svg" class="w-5 h-5" alt="google">
                         <span style="color: #374151;">Login with Google</span>
                     </button>
-
-                    <button type="button" class="flex items-center justify-center gap-2 rounded-xl py-2 transition border"
-                            style="border-color: #D1D5DB;"
-                            onmouseover="this.style.backgroundColor='#F9FAFB'"
-                            onmouseout="this.style.backgroundColor='transparent'">
-                        <img src="https://www.svgrepo.com/show/448224/facebook.svg" class="w-5 h-5" alt="facebook">
-                        <span style="color: #374151;">Login with Facebook</span>
-                    </button>
                 </div>
 
                 <div>
                     <p class="text-center" style="color: #6B7280;">
                         Don't have an account?
-                        <a href="{{ route('logreg.register') }}" style="color: #BF4141; font-weight: 600; text-decoration: underline;">Register</a>
+                        <a href="{{ route('logreg.register') }}" class="text-[#BF4141] font-semibold hover:underline">
+                            Register
+                        </a>
                     </p>
                 </div>
             </form>
         </div>
 
         <!-- Bagian kanan (Gambar Ilustrasi) -->
-        <div class="w-1/2 flex items-center justify-center p-6" style="background-color: #BF4141;">
-            <img src="{{ asset('images/kos.webp') }}" alt="illustration" class="rounded-2xl shadow-lg w-full object-cover">
+        <div class="w-1/2 relative rounded-2xl shadow-lg p-6" style="background-color: #BF4141; background-image: url('{{ asset('images/kos2.jpg') }}'); background-size: cover; background-position: center;">
+            <h1 class="absolute top-6 left-1/2 transform -translate-x-1/2 text-7xl font-extrabold text-center" style="color: #ffffff;">
+                UrHomey
+            </h1>
         </div>
     </div>
-
 </body>
 </html>
