@@ -12,7 +12,21 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('kamar', function (Blueprint $table) {
-            $table->id();
+            $table->id('nomor_kamar');
+            $table->unsignedBigInteger('id_kategori');
+            $table->foreign('id_kategori')
+                  ->references('id_kategori')
+                  ->on('kategori')
+                  ->onDelete('cascade');
+
+            $table->unsignedBigInteger('id_penyewa')->nullable();
+            $table->foreign('id_penyewa')
+                    ->references('id_penyewa')
+                    ->on('penyewa')
+                    ->onDelete('set null');
+            $table->string('perabotan');
+            $table->string('lokasi_lantai');
+            $table->string('status_kamar');
             $table->timestamps();
         });
     }
