@@ -5,9 +5,39 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
+use App\Models\Penyewa;
+use Illuminate\Validation\Rule;
 
 class AuthController extends Controller
 {
+
+    public function showRegister()
+    {
+        return view('logreg.register');
+    }
+
+    public function registerProcess(Request $request)
+    {
+        // Validasi
+        $request->validate([
+            'nama_lengkap' => 'required|string|max:255',
+            'nomor_telepon' => 'required|string|max:20',
+            'username' => 'required|string|max:50|unique:penyewa,username',
+            'password' => 'required|string',
+        ]);
+
+        // Simpan ke database dgn Model Penyewa
+        Penyewa::create([
+            'nama_lengkap'  => $request->nama_lengkap,
+            'nomor_telepon' => $request->nomor_telepon,
+            'username'      => $request->username,
+            'password'      => $request->password,
+        ]);
+
+        // Kembalikan popup sukses
+        return redirect()->route('login')->with('success', 'Registrasi berhasil!');
+    }
+
     /**
      * Tampilkan halaman login
      */
@@ -42,7 +72,7 @@ class AuthController extends Controller
 
         // Jika sesuai, simpan sesi login
         Session::put('penyewa', [
-            'id' => $penyewa->id,
+            'id_penyewa' => $penyewa->id_penyewa,
             'username' => $penyewa->username,
         ]);
 
@@ -55,6 +85,6 @@ class AuthController extends Controller
     public function logout()
     {
         Session::forget('penyewa');
-        return redirect()->route('logreg.login')->with('success', 'Anda telah logout');
+        return redirect()->route('dashboard')->with('success', 'Anda telah logout');
     }
 }

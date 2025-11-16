@@ -9,12 +9,12 @@
 <body class="flex items-center justify-center min-h-screen" style="background-color: #F3F4F6;">
 
     <div class="shadow-xl rounded-2xl flex overflow-hidden max-w-6xl w-full" style="background-color: #FFFFFF;">
-        <!-- Bagian kiri (Form Login) -->
+
         <div class="w-1/2 p-10 flex flex-col justify-center">
             <h1 class="text-5xl font-extrabold mb-3 text-center" style="color: #111827;">Welcome</h1>
             <p class="mb-8 text-center" style="color: #6B7280;">Please register to have an account</p>
 
-            <form action="{{ route('logreg.login') }}" method="POST" class="space-y-5">
+            <form action="{{ route('register.process') }}" method="POST" class="space-y-5">
                 @csrf
                 <div>
                     <label for="username" class="block mb-1" style="color: #374151;">Nama Lengkap</label>
@@ -22,7 +22,7 @@
                         <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="#9CA3AF">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.5 20a6.5 6.5 0 0113 0M12 11a4 4 0 100-8 4 4 0 000 8z" />
                         </svg>
-                        <input type="text" name="username" id="username" required class="w-full outline-none border-none" style="color: #374151; placeholder-color: #9CA3AF;" placeholder="Nama Lengkap">
+                        <input type="text" name="nama_lengkap" id="nama_lengkap" required class="w-full outline-none border-none" style="color: #374151; placeholder-color: #9CA3AF;" placeholder="Nama Lengkap">
                     </div>
                 </div>
 
@@ -32,7 +32,7 @@
                         <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="#9CA3AF">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5.5a16 16 0 0015.5 15.5l2-2a2 2 0 00-.5-3.2l-3.5-1.5a2 2 0 00-2.2.4l-1.5 1.5a12 12 0 01-5.5-5.5l1.5-1.5a2 2 0 00.4-2.2L6.2 5.5a2 2 0 00-3.2-.5l-2 2z" />
                         </svg>
-                        <input type="text" name="username" id="username" required class="w-full outline-none border-none" style="color: #374151; placeholder-color: #9CA3AF;" placeholder="+628xxx">
+                        <input type="text" name="nomor_telepon" id="nomor_telepon" required class="w-full outline-none border-none" style="color: #374151; placeholder-color: #9CA3AF;" placeholder="+628xxx">
                     </div>
                 </div>
 
@@ -84,7 +84,7 @@
                 <div>
                     <p class="text-center" style="color: #6B7280;">
                         Already have account?
-                        <a href="{{ route('logreg.login') }}" class="text-[#BF4141] font-semibold hover:underline">
+                        <a href="{{ route('login') }}" class="text-[#BF4141] font-semibold hover:underline">
                             Login
                         </a>
                     </p>
@@ -92,12 +92,39 @@
             </form>
         </div>
 
-        <!-- Bagian kanan (Gambar Ilustrasi) -->
         <div class="w-1/2 relative rounded-2xl shadow-lg p-6" style="background-color: #BF4141; background-image: url('{{ asset('images/kos2.jpg') }}'); background-size: cover; background-position: center;">
             <h1 class="absolute top-6 left-1/2 transform -translate-x-1/2 text-7xl font-extrabold text-center" style="color: #ffffff;">
                 UrHomey
             </h1>
         </div>
     </div>
+
+    @if(session('success') || $errors->any())
+    <div id="popup-overlay" class="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+        <div class="bg-white p-6 rounded-xl shadow-xl text-center max-w-md w-full scale-110">
+            <h2 class="text-2xl font-bold mb-2
+                @if(session('success')) text-green-600
+                @else text-red-600
+                @endif">
+
+                @if(session('success'))
+                    {{ session('success') }}
+                @else
+                    {{ $errors->first() }}
+                @endif
+            </h2>
+
+            <p class="text-gray-600 text-sm">Klik di mana saja untuk menutup</p>
+        </div>
+    </div>
+
+    <script>
+        // Klik di mana saja untuk menutup popup
+        document.getElementById('popup-overlay').addEventListener('click', () => {
+            document.getElementById('popup-overlay').style.display = 'none';
+        });
+    </script>
+    @endif
+
 </body>
 </html>

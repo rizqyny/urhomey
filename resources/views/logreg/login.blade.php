@@ -9,20 +9,23 @@
 <body class="flex items-center justify-center min-h-screen" style="background-color: #F3F4F6;">
 
     <div class="shadow-xl rounded-2xl flex overflow-hidden max-w-6xl w-full" style="background-color: #FFFFFF;">
-        <!-- Bagian kiri (Form Login) -->
+
         <div class="w-1/2 p-10 flex flex-col justify-center">
+
             <h1 class="text-5xl font-extrabold mb-3 text-center" style="color: #111827;">Welcome</h1>
             <p class="mb-8 text-center" style="color: #6B7280;">Please login to continue your journey with us</p>
 
-            <form action="{{ route('logreg.login') }}" method="POST" class="space-y-5">
+            <form action="{{ route('login.process') }}" method="POST" class="space-y-5">
                 @csrf
+
                 <div>
                     <label for="username" class="block mb-1" style="color: #374151;">Username</label>
                     <div class="flex items-center rounded-xl px-3 py-2" style="border: 1px solid #D1D5DB;">
                         <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="#9CA3AF">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.121 17.804A9 9 0 1118.878 6.197M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                         </svg>
-                        <input type="text" name="username" id="username" required class="w-full outline-none border-none" style="color: #374151; placeholder-color: #9CA3AF;" placeholder="Username">
+                        <input type="text" name="username" id="username" required class="w-full outline-none border-none"
+                               style="color: #374151;" placeholder="Username">
                     </div>
                 </div>
 
@@ -33,7 +36,8 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 11c1.657 0 3-1.343 3-3V5a3 3 0 00-6 0v3c0 1.657 1.343 3 3 3z" />
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 11h14v10H5z" />
                         </svg>
-                        <input type="password" name="password" id="password" required class="w-full outline-none border-none" style="color: #374151; placeholder-color: #9CA3AF;" placeholder="Password">
+                        <input type="password" name="password" id="password" required class="w-full outline-none border-none"
+                               style="color: #374151;" placeholder="Password">
                     </div>
                 </div>
 
@@ -63,7 +67,7 @@
                 <div>
                     <p class="text-center" style="color: #6B7280;">
                         Don't have an account?
-                        <a href="{{ route('logreg.register') }}" class="text-[#BF4141] font-semibold hover:underline">
+                        <a href="{{ route('register') }}" class="text-[#BF4141] font-semibold hover:underline">
                             Register
                         </a>
                     </p>
@@ -71,12 +75,34 @@
             </form>
         </div>
 
-        <!-- Bagian kanan (Gambar Ilustrasi) -->
         <div class="w-1/2 relative rounded-2xl shadow-lg p-6" style="background-color: #BF4141; background-image: url('{{ asset('images/kos2.jpg') }}'); background-size: cover; background-position: center;">
             <h1 class="absolute top-6 left-1/2 transform -translate-x-1/2 text-7xl font-extrabold text-center" style="color: #ffffff;">
                 UrHomey
             </h1>
         </div>
     </div>
+
+    @if (session('error'))
+    <div id="popupOverlay" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+        <div id="popupBox" class="bg-white p-8 rounded-xl shadow-xl text-center"
+            style="width: 400px;">
+
+            <h2 class="text-xl font-bold text-[#940000] mb-4">Login Gagal</h2>
+            <p class="text-gray-700 text-lg">{{ session('error') }}</p>
+
+        </div>
+    </div>
+    @endif
+
+    <script>
+        document.addEventListener('click', function (event) {
+            const overlay = document.getElementById('popupOverlay');
+            const box = document.getElementById('popupBox');
+            if (overlay && !box.contains(event.target)) {
+                overlay.remove();
+            }
+        });
+    </script>
+
 </body>
 </html>

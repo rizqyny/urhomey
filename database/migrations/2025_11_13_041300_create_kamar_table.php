@@ -27,6 +27,7 @@ return new class extends Migration
             $table->string('perabotan');
             $table->string('lokasi_lantai');
             $table->string('status_kamar');
+            $table->string('gambar')->nullable();
             $table->timestamps();
         });
     }
