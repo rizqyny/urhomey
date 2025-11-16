@@ -12,13 +12,14 @@ class PageController extends Controller
         return view('dashboard', ['username' => $username]);
     }
 
-    public function login()
+    public function kamarku()
     {
-        return view('logreg.login');
+        return view('kamarku');
     }
 
-    public function register()
+    public function datakamar()
     {
-        return view('logreg.register');
+        return view('datakamar');
     }
+
 }

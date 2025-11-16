@@ -3,9 +3,18 @@
             <div class="flex items-center gap-4">
                 <a href="{{ route('dashboard') }}" class="text-3xl font-extrabold tracking-tight">UrHomey</a>
 
-                <div class=" md:flex items-center ml-6 rounded-full px-3 py-2">
-                    <a href="{{ route('dashboard') }}" class="text-lg px-3 py-1 rounded-full hover:bg-white/30 transition">
+            </div>
+
+            <div class="flex justify-center">
+                <div class=" md:flex items-center ml-6 rounded-lg px-3 py-2">
+                    <a href="{{ route('dashboard') }}" class="text-xl font-semibold px-3 py-1 rounded-md hover:bg-white/30 transition">
                         Dashboard
+                    </a>
+                </div>
+
+                <div class=" md:flex items-center ml-6 rounded-lg px-3 py-2">
+                    <a href="{{ route('kamarku') }}" class="text-xl font-semibold px-3 py-1 rounded-md hover:bg-white/30 transition">
+                        KamarKu
                     </a>
                 </div>
             </div>

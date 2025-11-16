@@ -4,15 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>@yield('title')</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="min-h-screen flex flex-col">
 
-    @if(session()->has('penyewa.username'))
+    @if(session()->has('penyewa'))
         @include('components.navbar')
-    @else
 
+    @elseif(session()->has('pemilik'))
+        @include('components.navbaradmin')
+
+    @else
         @unless(Request::routeIs('login'))
         <nav class="bg-[#940000]">
             <div class="text-white container mx-auto px-6 py-6 flex items-center justify-between">
@@ -37,6 +40,6 @@
     <main class='grow container mx-auto'>
         @yield('content')
     </main>
-
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
 </body>
 </html>
