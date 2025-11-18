@@ -18,10 +18,6 @@ Route::get('/kamarku', [PageController::class, 'kamarku'])
     ->middleware('isvalid:penyewa')
     ->name('kamarku');
 
-// Route::get('/datakamar', [PageController::class, 'datakamar'])
-//     ->middleware('isvalid:pemilik')
-//     ->name('datakamar');
-
 Route::middleware('isvalid:pemilik')->group(function () {
 
     Route::get('/datakamar', [KamarController::class, 'index'])->name('kamar.index');

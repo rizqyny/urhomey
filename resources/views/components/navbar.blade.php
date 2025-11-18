@@ -1,4 +1,4 @@
-    <nav class="bg-[#940000]">
+    <nav class="bg-[#940000] fixed top-0 left-0 w-full z-50">
         <div class="text-white container mx-auto px-6 py-4 flex items-center justify-between">
             <div class="flex items-center gap-4">
                 <a href="{{ route('dashboard') }}" class="text-3xl font-extrabold tracking-tight">UrHomey</a>

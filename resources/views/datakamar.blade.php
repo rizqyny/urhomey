@@ -14,6 +14,7 @@
                 id_kategori: '',
                 lokasi_lantai: '',
                 status_kamar: '',
+                perabotan: []
             },
 
             editRoute: '',
@@ -25,6 +26,7 @@
                 this.editData.id_kategori = item.id_kategori;
                 this.editData.lokasi_lantai = item.lokasi_lantai;
                 this.editData.status_kamar = item.status_kamar;
+                this.editData.perabotan = JSON.parse(item.perabotan);
 
                 this.editRoute = '/datakamar/' + item.nomor_kamar;
             }
@@ -32,7 +34,7 @@
     }
 </script>
 
-<div x-data="{ openTambah: false }">
+{{-- <div x-data="{ openTambah: false }"> --}}
 
 <div x-data="kamarPage()">
 
@@ -60,7 +62,7 @@
          ============================ --}}
     <div class="overflow-x-auto bg-white shadow rounded-lg">
         <table class="w-full text-left border-collapse">
-            <thead class="bg-gray-200 text-lg">
+            <thead class="bg-[#940000] text-lg text-white">
                 <tr>
                     <th class="p-3 border">Nomor Kamar</th>
                     <th class="p-3 border">Kategori</th>
@@ -72,9 +74,9 @@
                 </tr>
             </thead>
 
-            <tbody>
+            <tbody class="bg-gray-200">
                 @foreach ($kamar as $item)
-                <tr class="hover:bg-gray-100">
+                <tr class="hover:bg-gray-100 text-center">
                     <td class="p-3 border">{{ $item->nomor_kamar }}</td>
                     <td class="p-3 border">{{ $item->kategori->nama_kategori ?? 'Tidak ada' }}</td>
                     <td class="p-3 border">{{ $item->lokasi_lantai }}</td>
@@ -103,11 +105,12 @@
                                 nomor_kamar: '{{ $item->nomor_kamar }}',
                                 id_kategori: '{{ $item->id_kategori }}',
                                 lokasi_lantai: '{{ $item->lokasi_lantai }}',
-                                status_kamar: '{{ $item->status_kamar }}'
+                                status_kamar: '{{ $item->status_kamar }}',
+                                perabotan: '{{ addslashes($item->perabotan) }}'
                             })"
                             class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded-xl">
-                            Edit
-                        </button>
+                                Edit
+                            </button>
 
                             <form action="{{ route('kamar.destroy', $item->nomor_kamar) }}" method="POST"
                                   onsubmit="return confirm('Yakin ingin menghapus kamar ini?')">
@@ -259,6 +262,42 @@
                 <option value="kosong">Kosong</option>
                 <option value="terisi">Terisi</option>
             </select>
+        </div>
+
+        <div class="mb-3">
+            <label class="font-semibold block mb-1">Perabotan</label>
+
+            <div class="flex flex-col gap-2">
+
+                <label class="inline-flex items-center gap-2">
+                    <input type="checkbox" value="Tempat tidur"
+                           name="perabotan[]"
+                           :checked="editData.perabotan?.includes('Tempat tidur')">
+                    <span>Tempat Tidur</span>
+                </label>
+
+                <label class="inline-flex items-center gap-2">
+                    <input type="checkbox" value="Lemari"
+                           name="perabotan[]"
+                           :checked="editData.perabotan?.includes('Lemari')">
+                    <span>Lemari</span>
+                </label>
+
+                <label class="inline-flex items-center gap-2">
+                    <input type="checkbox" value="Meja Belajar"
+                           name="perabotan[]"
+                           :checked="editData.perabotan?.includes('Meja Belajar')">
+                    <span>Meja Belajar</span>
+                </label>
+
+                <label class="inline-flex items-center gap-2">
+                    <input type="checkbox" value="Kursi"
+                           name="perabotan[]"
+                           :checked="editData.perabotan?.includes('Kursi')">
+                    <span>Kursi</span>
+                </label>
+
+            </div>
         </div>
 
         <div class="mb-3">

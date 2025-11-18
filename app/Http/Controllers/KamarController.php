@@ -17,6 +17,7 @@ class KamarController extends Controller
         return view('datakamar', compact('kamar', 'kategori'));
     }
 
+
     public function create()
     {
         $kategori = Kategori::all();

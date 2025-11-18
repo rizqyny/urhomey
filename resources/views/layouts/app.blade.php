@@ -17,7 +17,7 @@
 
     @else
         @unless(Request::routeIs('login'))
-        <nav class="bg-[#940000]">
+        <nav class="bg-[#940000] fixed top-0 left-0 w-full z-50">
             <div class="text-white container mx-auto px-6 py-6 flex items-center justify-between">
                 <div class="flex items-center gap-4">
                     <a href="{{ route('dashboard') }}" class="text-3xl font-extrabold tracking-tight">
@@ -37,7 +37,7 @@
     @endif
 
 
-    <main class='grow container mx-auto'>
+    <main class='grow container mx-auto pt-16 pb-8'>
         @yield('content')
     </main>
     <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>

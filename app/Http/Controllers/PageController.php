@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Kamar;
+use App\Models\Kategori;
 use Illuminate\Http\Request;
 
 class PageController extends Controller
@@ -9,17 +11,18 @@ class PageController extends Controller
     public function dashboard()
     {
         $username = session('username');
-        return view('dashboard', ['username' => $username]);
+
+        // Ambil relasi kategori + harga
+        $kamar = Kamar::with('kategori:id_kategori,nama_kategori,harga')->get();
+
+        return view('dashboard', [
+            'username' => $username,
+            'kamar' => $kamar
+        ]);
     }
 
     public function kamarku()
     {
         return view('kamarku');
     }
-
-    public function datakamar()
-    {
-        return view('datakamar');
-    }
-
 }
