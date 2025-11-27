@@ -16,6 +16,12 @@
                     Data Kamar
                 </a>
             </div>
+
+            <div class=" md:flex items-center ml-6 rounded-lg px-3 py-2">
+                <a href="{{ route('penyewa.index') }}" class="text-xl font-semibold px-3 py-1 rounded-md hover:bg-white/30 transition">
+                    Data Penyewa
+                </a>
+            </div>
         </div>
 
         <div class="flex justify-end">

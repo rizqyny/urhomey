@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\KamarController;
+use App\Http\Controllers\PenyewaController;
 
 Route::get('/', [PageController::class, 'dashboard'])->name('dashboard');
 
@@ -27,4 +28,5 @@ Route::middleware('isvalid:pemilik')->group(function () {
     Route::put('/datakamar/{nomor_kamar}', [KamarController::class, 'update'])->name('kamar.update');
     Route::delete('/datakamar/{nomor_kamar}', [KamarController::class, 'destroy'])->name('kamar.destroy');
 
+    Route::get('/datapenyewa', [PenyewaController::class, 'index'])->name('penyewa.index');
 });
