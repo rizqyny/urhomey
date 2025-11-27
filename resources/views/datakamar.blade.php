@@ -70,6 +70,7 @@
                     <th class="p-3 border">Status</th>
                     <th class="p-3 border">Perabotan</th>
                     <th class="p-3 border">Gambar</th>
+                    <th class="p-3 border">Kode Kunci</th>
                     <th class="p-3 border text-center">Aksi</th>
                 </tr>
             </thead>
@@ -97,6 +98,8 @@
                             <span class="text-gray-400 text-sm">Tidak ada</span>
                         @endif
                     </td>
+
+                    <td class="p-3 border">{{ $item->kode_kunci }}</td>
 
                     <td class="p-3 border text-center">
                         <div class="flex justify-center gap-2">
@@ -198,6 +201,11 @@
                             <span>Kursi</span>
                         </label>
 
+                    </div>
+                    <div class="mb-3">
+                        <label class="font-semibold">Kode Kunci</label>
+                        <input type="text" name="kode_kunci" required
+                            class="w-full border px-3 py-2 rounded">
                     </div>
                 </div>
 
@@ -303,6 +311,11 @@
         <div class="mb-3">
             <label class="font-semibold">Gambar Baru</label>
             <input type="file" name="gambar" class="w-full border px-3 py-2 rounded">
+        </div>
+
+        <div class="mb-3">
+            <label class="font-semibold">Kode Kunci</label>
+            <input type="text" name="kode_kunci" x-model="editData.kode_kunci" class="w-full border px-3 py-2 rounded">
         </div>
 
         <div class="flex justify-end gap-3 mt-4">

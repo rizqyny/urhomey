@@ -122,6 +122,15 @@
                     <div id="modalPerabotan" class="text-gray-700 text-sm leading-relaxed"></div>
                 </div>
 
+                <!-- TOMBOL PESAN -->
+                <div class="mt-6">
+                    <a id="pesanButton"
+                       href="#"
+                       class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-4 rounded-xl text-center block transition duration-200">
+                        Pesan Sekarang
+                    </a>
+                </div>
+
             </div>
 
         </div>
@@ -132,7 +141,6 @@
 
 <script>
 function openDetailModal(item) {
-
     // Nomor kamar
     document.getElementById('modalNomor').innerText = "Kamar " + item.nomor_kamar;
 
@@ -143,7 +151,15 @@ function openDetailModal(item) {
     document.getElementById('modalLantai').innerText = item.lokasi_lantai;
 
     // Status
-    document.getElementById('modalStatus').innerText = item.status_kamar;
+    const statusElement = document.getElementById('modalStatus');
+    statusElement.innerText = item.status_kamar;
+
+    // Style status berdasarkan kondisi
+    if (item.status_kamar === 'kosong') {
+        statusElement.className = 'text-green-600 font-semibold';
+    } else {
+        statusElement.className = 'text-red-600 font-semibold';
+    }
 
     // Harga
     document.getElementById('modalHarga').innerText = `Rp ${new Intl.NumberFormat('id-ID').format(item.kategori.harga)}`;
@@ -157,6 +173,19 @@ function openDetailModal(item) {
         gambarContainer.innerHTML = `<img src="/storage/${item.gambar}" class="w-full h-full object-cover">`;
     } else {
         gambarContainer.innerHTML = `<span class="text-gray-500 text-sm">Tidak ada gambar</span>`;
+    }
+
+    // Tombol Pesan - hanya aktif jika kamar kosong
+    const pesanButton = document.getElementById('pesanButton');
+    if (item.status_kamar === 'kosong') {
+        pesanButton.href = `/pesan/${item.id}`; // Ganti dengan route yang sesuai
+        pesanButton.className = 'w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-4 rounded-xl text-center block transition duration-200';
+        pesanButton.innerText = 'Pesan Sekarang';
+    } else {
+        pesanButton.href = '#';
+        pesanButton.className = 'w-full bg-gray-400 text-white font-semibold py-3 px-4 rounded-xl text-center block cursor-not-allowed';
+        pesanButton.innerText = 'Tidak Tersedia';
+        pesanButton.onclick = function(e) { e.preventDefault(); };
     }
 
     // Tampilkan modal

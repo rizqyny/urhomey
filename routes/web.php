@@ -30,3 +30,5 @@ Route::middleware('isvalid:pemilik')->group(function () {
 
     Route::get('/datapenyewa', [PenyewaController::class, 'index'])->name('penyewa.index');
 });
+
+Route::get('/pesan/{id}', [TransaksiController::class, 'create'])->name('pemesanan.create');

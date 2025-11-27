@@ -37,7 +37,8 @@ class KamarController extends Controller
             'perabotan' => 'required|array',
             'lokasi_lantai' => 'required',
             'status_kamar' => 'required',
-            'gambar' => 'image|mimes:jpg,jpeg,png'
+            'gambar' => 'image|mimes:jpg,jpeg,png',
+            'kode_kunci' => 'nullable|string'
         ]);
 
         $gambar = null;
@@ -52,7 +53,8 @@ class KamarController extends Controller
             'perabotan' => json_encode($request->perabotan),
             'lokasi_lantai' => $request->lokasi_lantai,
             'status_kamar' => $request->status_kamar,
-            'gambar' => $gambar
+            'gambar' => $gambar,
+            'kode_kunci' => $request->kode_kunci
         ]);
 
         return redirect()->route('kamar.index')->with('success', 'Kamar berhasil ditambahkan');
@@ -75,7 +77,8 @@ class KamarController extends Controller
             'perabotan' => 'required',
             'lokasi_lantai' => 'required',
             'status_kamar' => 'required',
-            'gambar' => 'image|mimes:jpg,jpeg,png|max:2048'
+            'gambar' => 'image|mimes:jpg,jpeg,png|max:2048',
+            'kode_kunci' => 'nullable|string'
         ]);
 
         $gambar = $kamar->gambar;
@@ -88,7 +91,8 @@ class KamarController extends Controller
             'perabotan' => json_encode($request->perabotan), // WAJIB JSON!
             'lokasi_lantai' => $request->lokasi_lantai,
             'status_kamar' => $request->status_kamar,
-            'gambar' => $gambar
+            'gambar' => $gambar,
+            'kode_kunci' => $request->kode_kunci
         ]);
 
         return redirect()->route('kamar.index')->with('success', 'Kamar berhasil diperbarui');

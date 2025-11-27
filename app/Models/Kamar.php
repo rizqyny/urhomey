@@ -23,7 +23,8 @@ class Kamar extends Model
         'perabotan',
         'lokasi_lantai',
         'status_kamar',
-        'gambar'
+        'gambar',
+        'kode_kunci'
     ];
 
     public function kategori() {

@@ -28,6 +28,7 @@ return new class extends Migration
             $table->string('lokasi_lantai');
             $table->string('status_kamar');
             $table->string('gambar')->nullable();
+            $table->string('kode_kunci')->nullable();
             $table->timestamps();
         });
     }
