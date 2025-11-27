@@ -178,7 +178,7 @@ function openDetailModal(item) {
     // Tombol Pesan - hanya aktif jika kamar kosong
     const pesanButton = document.getElementById('pesanButton');
     if (item.status_kamar === 'kosong') {
-        pesanButton.href = `/pesan/${item.id}`; // Ganti dengan route yang sesuai
+        pesanButton.href = `/transaksi/${item.nomor_kamar}`;
         pesanButton.className = 'w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-4 rounded-xl text-center block transition duration-200';
         pesanButton.innerText = 'Pesan Sekarang';
     } else {

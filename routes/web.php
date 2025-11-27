@@ -15,9 +15,15 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 Route::get('/register', [AuthController::class, 'showRegister'])->name('register');
 Route::post('/register', [AuthController::class, 'registerProcess'])->name('register.process');
 
-Route::get('/kamarku', [PageController::class, 'kamarku'])
-    ->middleware('isvalid:penyewa')
-    ->name('kamarku');
+Route::middleware('isvalid:penyewa')->group(function () {
+
+    Route::get('/transaksi/{id}', [TransaksiController::class, 'index'])->name('pemesanan.index');
+    Route::post('/transaksi/{id}', [TransaksiController::class, 'store'])->name('pemesanan.store');
+
+    Route::get('/kamarku', [PageController::class, 'kamarku'])->name('kamarku');
+
+
+});
 
 Route::middleware('isvalid:pemilik')->group(function () {
 
@@ -29,6 +35,9 @@ Route::middleware('isvalid:pemilik')->group(function () {
     Route::delete('/datakamar/{nomor_kamar}', [KamarController::class, 'destroy'])->name('kamar.destroy');
 
     Route::get('/datapenyewa', [PenyewaController::class, 'index'])->name('penyewa.index');
+    Route::get('/datapenyewa/create', [PenyewaController::class, 'create'])->name('penyewa.create');
+    Route::post('/datapenyewa', [PenyewaController::class, 'store'])->name('penyewa.store');
+    Route::get('/datapenyewa/{id_penyewa}/edit', [PenyewaController::class, 'edit'])->name('penyewa.edit');
+    Route::put('/datapenyewa/{id_penyewa}', [PenyewaController::class, 'update'])->name('penyewa.update');
+    Route::delete('/datapenyewa/{id_penyewa}', [PenyewaController::class, 'destroy'])->name('penyewa.destroy');
 });
-
-Route::get('/pesan/{id}', [TransaksiController::class, 'create'])->name('pemesanan.create');
