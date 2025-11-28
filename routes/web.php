@@ -5,6 +5,7 @@ use App\Http\Controllers\PageController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\KamarController;
 use App\Http\Controllers\PenyewaController;
+use App\Http\Controllers\TransaksiController;
 
 Route::get('/', [PageController::class, 'dashboard'])->name('dashboard');
 
@@ -17,12 +18,21 @@ Route::post('/register', [AuthController::class, 'registerProcess'])->name('regi
 
 Route::middleware('isvalid:penyewa')->group(function () {
 
-    Route::get('/transaksi/{id}', [TransaksiController::class, 'index'])->name('pemesanan.index');
-    Route::post('/transaksi/{id}', [TransaksiController::class, 'store'])->name('pemesanan.store');
+    // halaman transaksi detail
+    Route::get('/transaksi/{nomor_kamar}', [TransaksiController::class, 'index'])
+        ->name('transaksi.index');
+
+    // proses order
+    Route::post('/transaksi/store/{nomor_kamar}', [TransaksiController::class, 'store'])
+        ->name('transaksi.store');
 
     Route::get('/kamarku', [PageController::class, 'kamarku'])->name('kamarku');
 
+    Route::get('/datatransaksi', [TransaksiController::class, 'dataTransaksi'])
+        ->name('transaksi.data');
 
+    Route::post('/transaksi/selesai/{id_transaksi}', [TransaksiController::class, 'markSelesai'])
+        ->name('transaksi.selesai');
 });
 
 Route::middleware('isvalid:pemilik')->group(function () {
