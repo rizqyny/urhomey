@@ -106,4 +106,20 @@ class KamarController extends Controller
 
         return redirect()->route('kamar.index')->with('success', 'Kamar berhasil dihapus');
     }
+
+    public function kamarku()
+    {
+        $sessionPenyewa = session('penyewa');
+
+        if (!$sessionPenyewa) {
+            return redirect()->route('login')->with('error', 'Silakan login terlebih dahulu');
+        }
+
+        $kamar = Kamar::with('kategori')
+                    ->where('id_penyewa', $sessionPenyewa['id_penyewa'])
+                    ->first();
+
+        return view('kamarku', compact('kamar'));
+    }
+
 }

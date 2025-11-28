@@ -20,10 +20,6 @@ class Penyewa extends Model
         'nomor_telepon'
     ];
 
-    /**
-     * Relasi One to One dengan Kamar
-     * Penyewa memiliki satu Kamar
-     */
     public function kamar()
     {
         return $this->hasOne(Kamar::class, 'id_penyewa', 'id_penyewa');

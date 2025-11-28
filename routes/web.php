@@ -16,23 +16,19 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 Route::get('/register', [AuthController::class, 'showRegister'])->name('register');
 Route::post('/register', [AuthController::class, 'registerProcess'])->name('register.process');
 
+Route::get('/transaksi/{nomor_kamar}', [TransaksiController::class, 'index'])
+    ->middleware('isvalid:transaksi')
+    ->name('transaksi.index');
+
 Route::middleware('isvalid:penyewa')->group(function () {
 
-    // halaman transaksi detail
-    Route::get('/transaksi/{nomor_kamar}', [TransaksiController::class, 'index'])
-        ->name('transaksi.index');
+    // Route::get('/transaksi/{nomor_kamar}', [TransaksiController::class, 'index'])
+    //     ->name('transaksi.index');
 
-    // proses order
     Route::post('/transaksi/store/{nomor_kamar}', [TransaksiController::class, 'store'])
         ->name('transaksi.store');
 
-    Route::get('/kamarku', [PageController::class, 'kamarku'])->name('kamarku');
-
-    Route::get('/datatransaksi', [TransaksiController::class, 'dataTransaksi'])
-        ->name('transaksi.data');
-
-    Route::post('/transaksi/selesai/{id_transaksi}', [TransaksiController::class, 'markSelesai'])
-        ->name('transaksi.selesai');
+    Route::get('/kamarku', [KamarController::class, 'kamarku'])->name('kamarku');
 });
 
 Route::middleware('isvalid:pemilik')->group(function () {
@@ -50,4 +46,13 @@ Route::middleware('isvalid:pemilik')->group(function () {
     Route::get('/datapenyewa/{id_penyewa}/edit', [PenyewaController::class, 'edit'])->name('penyewa.edit');
     Route::put('/datapenyewa/{id_penyewa}', [PenyewaController::class, 'update'])->name('penyewa.update');
     Route::delete('/datapenyewa/{id_penyewa}', [PenyewaController::class, 'destroy'])->name('penyewa.destroy');
+
+    Route::get('/datatransaksi', [TransaksiController::class, 'dataTransaksi'])
+        ->name('transaksi.data');
+
+    Route::post('/transaksi/selesai/{id_transaksi}', [TransaksiController::class, 'markSelesai'])
+        ->name('transaksi.selesai');
+
+    Route::post('/transaksi/batalkan/{id_transaksi}', [TransaksiController::class, 'batalkan'])
+        ->name('transaksi.batalkan');
 });

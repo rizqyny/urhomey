@@ -13,8 +13,21 @@ class isvalid
      */
     public function handle(Request $request, Closure $next, $role = null): Response
     {
-        $penyewa  = $request->session()->get('penyewa.username');
-        $pemilik  = $request->session()->get('pemilik.username');
+        $penyewa = $request->session()->get('penyewa.username');
+        $pemilik = $request->session()->get('pemilik.username');
+
+        if ($role === 'transaksi') {
+
+            if (!$penyewa && !$pemilik) {
+                return redirect()->route('login');
+            }
+
+            if ($pemilik && !$penyewa) {
+                return back()->with('error', 'Pemilik tidak bisa mengakses halaman transaksi.');
+            }
+
+            return $next($request);
+        }
 
         if ($role === 'penyewa' && !$penyewa) {
             return back();
@@ -26,4 +39,5 @@ class isvalid
 
         return $next($request);
     }
+
 }

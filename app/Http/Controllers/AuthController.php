@@ -40,9 +40,6 @@ class AuthController extends Controller
         return view('logreg.login');
     }
 
-    /**
-     * Proses login
-     */
     public function login(Request $request)
     {
         $request->validate([

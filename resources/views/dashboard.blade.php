@@ -5,25 +5,21 @@
 @section('content')
 <section class="pt-8 space-y-10">
 
-    {{-- BAGIAN ATAS --}}
-    <div class="flex flex-col md:flex-row items-center gap-8 bg-white p-6 rounded-3xl shadow ">
-        <div class="md:w-1/2">
-            <img src="{{ asset('images/kos2.jpg') }}" class="rounded-3xl w-full shadow-md ">
+    <div class="relative rounded-3xl overflow-hidden shadow">
+        <div class="absolute inset-0">
+            <div class="w-full h-full bg-gradient-to-l from-white/90 to-white/20 absolute z-10"></div>
+            <img src="{{ asset('images/kos2.jpg') }}" class="w-full h-full object-cover" alt="Background Image">
         </div>
 
-        <div class="md:w-1/2 space-y-4">
-            <h2 class="text-4xl font-bold text-gray-800">
-                Selamat datang!
-            </h2>
-
-            <p class="text-gray-600 text-lg leading-relaxed">
-                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dolorum vel corporis porro delectus autem, expedita atque quo architecto fuga, deserunt accusantium repellat odio ut quis eveniet, labore amet consequuntur nisi? Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusantium rerum dolores impedit. Eveniet reprehenderit tenetur, nemo pariatur quam temporibus odit quidem, atque fuga possimus laborum veritatis delectus adipisci rem deleniti.
+        <div class="relative z-20 p-6 md:p-12 text-[#940000] space-y-4">
+            <h2 class="text-4xl font-bold">Selamat datang!</h2>
+            <p class="text-lg font-bold leading-relaxed">
+                UrHomey, sebuah sistem informasi berbasis web yang dirancang untuk mempermudah proses administrasi dan komunikasi antara pemilik kos dengan penyewa. Sistem ini memungkinkan calon penyewa untuk melihat daftar kamar yang tersedia, memeriksa fasilitas dan harga, serta melakukan pemesanan secara langsung tanpa harus menunggu respon manual dari pemilik kos.
             </p>
         </div>
     </div>
 
 
-    {{-- GRID CARD --}}
 
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6 pt-7">
 
@@ -41,7 +37,6 @@
                 </div>
             @endif
 
-            {{-- ISI CARD --}}
             <div class="p-4 space-y-2">
 
                 <h4 class="text-xl font-bold text-gray-800">
@@ -69,13 +64,11 @@
 </section>
 
 
-{{-- MODAL DETAIL KAMAR --}}
 <div id="detailModal"
      class="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center hidden z-50">
 
     <div class="bg-white w-[700px] rounded-3xl p-6 shadow-2xl relative">
 
-        <!-- Tombol Close -->
         <button onclick="closeDetailModal()"
                 class="absolute top-4 right-4 text-gray-500 hover:text-gray-700 text-2xl font-bold">
             &times;
@@ -83,13 +76,11 @@
 
         <div class="grid grid-cols-2 gap-6">
 
-            <!-- Gambar -->
             <div id="modalGambar"
                  class="h-64 w-full rounded-xl bg-gray-200 overflow-hidden flex items-center justify-center">
                 <span class="text-gray-400 text-sm">Tidak ada gambar</span>
             </div>
 
-            <!-- Informasi Kamar -->
             <div class="flex flex-col justify-between">
 
                 <div>
@@ -116,13 +107,11 @@
                     </p>
                 </div>
 
-                <!-- Perabotan -->
                 <div class="bg-gray-100 p-4 rounded-xl mt-4">
                     <p class="font-semibold text-gray-800 mb-1">Perabotan:</p>
                     <div id="modalPerabotan" class="text-gray-700 text-sm leading-relaxed"></div>
                 </div>
 
-                <!-- TOMBOL PESAN -->
                 <div class="mt-6">
                     <a id="pesanButton"
                        href="#"

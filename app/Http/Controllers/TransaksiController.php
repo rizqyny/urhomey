@@ -39,42 +39,66 @@ class TransaksiController extends Controller
     {
         $sessionPenyewa = session('penyewa');
 
+        // Simpan transaksi
         Transaksi::create([
             'nomor_kamar'       => $nomor_kamar,
             'id_metode'         => $request->id_metode,
             'tanggal_transaksi' => now(),
             'nominal'           => $request->nominal,
             'status'            => 'menunggu',
-            'id_penyewa'        => $sessionPenyewa['id_penyewa'],
         ]);
+
+        $kamar = Kamar::where('nomor_kamar', $nomor_kamar)->first();
+        $kamar->id_penyewa = $sessionPenyewa['id_penyewa'];
+        $kamar->save();
 
         return redirect()->route('dashboard')->with('success', 'Transaksi berhasil dibuat!');
     }
 
     public function dataTransaksi()
     {
-        $transaksi = Transaksi::with(['penyewa', 'metode', 'kamar.kategori'])
+        $transaksi = Transaksi::with(['metode', 'kamar.kategori'])
             ->orderBy('id_transaksi', 'DESC')
             ->get();
 
         return view('datatransaksi', compact('transaksi'));
     }
 
+    // public function markSelesai($id_transaksi)
+    // {
+    //     dd('FUNCTION DIPANGGIL', $id_transaksi);
+    // }
+
     public function markSelesai($id_transaksi)
     {
         $transaksi = Transaksi::findOrFail($id_transaksi);
 
-        // Update status transaksi
         $transaksi->status = "selesai";
         $transaksi->save();
 
-        // Update status kamar
         $kamar = Kamar::where('nomor_kamar', $transaksi->nomor_kamar)->first();
         $kamar->status_kamar = 'terisi';
-        $kamar->id_penyewa = $transaksi->id_penyewa;
         $kamar->save();
 
-        return redirect()->back()->with('success', 'Transaksi telah diselesaikan dan kamar terisi!');
+        return redirect()->back()->with('success', 'Transaksi selesai dan kamar terisi!');
+    }
+
+    public function batalkan($id_transaksi)
+    {
+        $transaksi = Transaksi::findOrFail($id_transaksi);
+
+        $transaksi->status = "dibatalkan";
+        $transaksi->save();
+
+        $kamar = Kamar::where('nomor_kamar', $transaksi->nomor_kamar)->first();
+
+        if ($kamar) {
+            $kamar->status_kamar = 'kosong';
+            $kamar->id_penyewa = null;
+            $kamar->save();
+        }
+
+        return redirect()->back()->with('success', 'Transaksi telah dibatalkan dan kamar dikosongkan!');
     }
 
 }

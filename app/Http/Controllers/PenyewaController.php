@@ -47,7 +47,6 @@ class PenyewaController extends Controller
             'nomor_kamar' => 'nullable|exists:kamar,nomor_kamar'
         ]);
 
-        // Buat penyewa baru
         $penyewa = Penyewa::create([
             'id_penyewa' => $request->id_penyewa,
             'username' => $request->username,
@@ -56,7 +55,6 @@ class PenyewaController extends Controller
             'nomor_telepon' => $request->nomor_telepon
         ]);
 
-        // Jika ada nomor kamar yang dipilih, update status kamar
         if ($request->nomor_kamar) {
             $kamar = Kamar::where('nomor_kamar', $request->nomor_kamar)->first();
             if ($kamar && $kamar->status_kamar === 'kosong') {
@@ -118,14 +116,12 @@ class PenyewaController extends Controller
             'nomor_telepon' => $request->nomor_telepon
         ];
 
-        // Update password jika diisi
         if ($request->password) {
-            $updateData['password'] = Hash::make($request->password);
+            $updateData['password'] = $request->password;
         }
 
         $penyewa->update($updateData);
 
-        // Handle perubahan kamar
         $this->updateKamarPenyewa($penyewa, $request->nomor_kamar);
 
         return redirect()->route('penyewa.index')->with('success', 'Data penyewa berhasil diperbarui');
@@ -159,7 +155,6 @@ class PenyewaController extends Controller
         $kamarSekarang = $penyewa->kamar;
         $kamarBaru = $nomorKamarBaru ? Kamar::where('nomor_kamar', $nomorKamarBaru)->first() : null;
 
-        // Kosongkan kamar sekarang jika ada
         if ($kamarSekarang) {
             $kamarSekarang->update([
                 'id_penyewa' => null,
@@ -167,7 +162,6 @@ class PenyewaController extends Controller
             ]);
         }
 
-        // Isi kamar baru jika dipilih
         if ($kamarBaru && $kamarBaru->status_kamar === 'kosong') {
             $kamarBaru->update([
                 'id_penyewa' => $penyewa->id_penyewa,
