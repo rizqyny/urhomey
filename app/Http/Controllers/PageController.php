@@ -12,17 +12,11 @@ class PageController extends Controller
     {
         $username = session('username');
 
-        // Ambil relasi kategori + harga
         $kamar = Kamar::with('kategori:id_kategori,nama_kategori,harga')->get();
 
         return view('dashboard', [
             'username' => $username,
             'kamar' => $kamar
         ]);
-    }
-
-    public function kamarku()
-    {
-        return view('kamarku');
     }
 }

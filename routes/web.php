@@ -6,6 +6,8 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\KamarController;
 use App\Http\Controllers\PenyewaController;
 use App\Http\Controllers\TransaksiController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\LaporanKerusakanController;
 
 Route::get('/', [PageController::class, 'dashboard'])->name('dashboard');
 
@@ -22,13 +24,16 @@ Route::get('/transaksi/{nomor_kamar}', [TransaksiController::class, 'index'])
 
 Route::middleware('isvalid:penyewa')->group(function () {
 
-    // Route::get('/transaksi/{nomor_kamar}', [TransaksiController::class, 'index'])
-    //     ->name('transaksi.index');
-
     Route::post('/transaksi/store/{nomor_kamar}', [TransaksiController::class, 'store'])
         ->name('transaksi.store');
 
     Route::get('/kamarku', [KamarController::class, 'kamarku'])->name('kamarku');
+
+    Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
+    Route::post('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
+
+    Route::get('/laporkan', [LaporanKerusakanController::class, 'index'])->name('laporan');
+    Route::post('/laporkan/store', [LaporanKerusakanController::class, 'store'])->name('laporan.store');
 });
 
 Route::middleware('isvalid:pemilik')->group(function () {
@@ -55,4 +60,10 @@ Route::middleware('isvalid:pemilik')->group(function () {
 
     Route::post('/transaksi/batalkan/{id_transaksi}', [TransaksiController::class, 'batalkan'])
         ->name('transaksi.batalkan');
+
+    Route::get('/laporan', [LaporanKerusakanController::class, 'adminIndex'])
+    ->name('laporan.index');
+
+    Route::post('/laporan/{id}/update-status', [LaporanKerusakanController::class, 'updateStatus'])
+        ->name('laporan.updateStatus');
 });

@@ -65,22 +65,6 @@
                     REGISTER
                 </button>
 
-                <div class="flex items-center justify-center my-4">
-                    <span class="border-b" style="width: 20%; border-color: #D1D5DB;"></span>
-                    <span class="text-sm mx-2" style="color: #9CA3AF;">or Register with others</span>
-                    <span class="border-b" style="width: 20%; border-color: #D1D5DB;"></span>
-                </div>
-
-                <div class="flex flex-col gap-3">
-                    <button type="button" class="flex items-center justify-center gap-2 rounded-xl py-2 transition border"
-                            style="border-color: #D1D5DB;"
-                            onmouseover="this.style.backgroundColor='#F9FAFB'"
-                            onmouseout="this.style.backgroundColor='transparent'">
-                        <img src="https://www.svgrepo.com/show/475656/google-color.svg" class="w-5 h-5" alt="google">
-                        <span style="color: #374151;">Register with Google</span>
-                    </button>
-                </div>
-
                 <div>
                     <p class="text-center" style="color: #6B7280;">
                         Already have account?

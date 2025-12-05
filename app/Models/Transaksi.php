@@ -14,7 +14,9 @@ class Transaksi extends Model
         'id_metode',
         'tanggal_transaksi',
         'nominal',
-        'status'
+        'status',
+        'berakhir',
+        'bukti_pembayaran'
     ];
 
     public function kamar()

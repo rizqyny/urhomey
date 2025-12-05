@@ -27,33 +27,45 @@ class TransaksiController extends Controller
         return view('transaksi', compact('kamar', 'penyewa', 'metode'));
     }
 
-    /**
-     * Proses simpan transaksi
-     */
-    // public function store(Request $request, $nomor_kamar)
-    // {
-    //     dd($request->all());
-    // }
-
     public function store(Request $request, $nomor_kamar)
     {
         $sessionPenyewa = session('penyewa');
+        $existingKamar = Kamar::where('id_penyewa', $sessionPenyewa['id_penyewa'])->first();
+        if ($existingKamar) {
+            return redirect()->back()->with('error', 'Anda sudah memiliki kamar. Tidak dapat menyewa kamar lagi.');
+        }
+        $kamar = Kamar::where('nomor_kamar', $nomor_kamar)->firstOrFail();
 
-        // Simpan transaksi
+        if ($kamar->status_kamar === 'terisi') {
+            return redirect()->back()->with('error', 'Kamar ini sudah ditempati.');
+        }
+        $request->validate([
+            'bukti_pembayaran' => 'required|image|mimes:jpg,jpeg,png|max:2048',
+        ]);
+        $filename = null;
+        if ($request->hasFile('bukti_pembayaran')) {
+            $file = $request->file('bukti_pembayaran');
+            $filename = time() . '_' . $file->getClientOriginalName();
+            $file->move(public_path('bukti_pembayaran'), $filename);
+        }
+
         Transaksi::create([
             'nomor_kamar'       => $nomor_kamar,
             'id_metode'         => $request->id_metode,
             'tanggal_transaksi' => now(),
+            'berakhir'          => now()->addDays(30),
             'nominal'           => $request->nominal,
+            'bukti_pembayaran'  => $filename,
             'status'            => 'menunggu',
         ]);
 
-        $kamar = Kamar::where('nomor_kamar', $nomor_kamar)->first();
         $kamar->id_penyewa = $sessionPenyewa['id_penyewa'];
         $kamar->save();
 
         return redirect()->route('dashboard')->with('success', 'Transaksi berhasil dibuat!');
     }
+
+
 
     public function dataTransaksi()
     {
@@ -63,11 +75,6 @@ class TransaksiController extends Controller
 
         return view('datatransaksi', compact('transaksi'));
     }
-
-    // public function markSelesai($id_transaksi)
-    // {
-    //     dd('FUNCTION DIPANGGIL', $id_transaksi);
-    // }
 
     public function markSelesai($id_transaksi)
     {

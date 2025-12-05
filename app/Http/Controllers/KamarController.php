@@ -17,17 +17,11 @@ class KamarController extends Controller
         return view('datakamar', compact('kamar', 'kategori'));
     }
 
-
     public function create()
     {
         $kategori = Kategori::all();
         return view('datakamar', compact('kategori'));
     }
-
-    // public function store(Request $request)
-    // {
-    //     dd($request->all());
-    // }
 
     public function store(Request $request)
     {

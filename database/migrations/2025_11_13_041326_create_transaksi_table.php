@@ -27,7 +27,7 @@ return new class extends Migration {
             $table->date('tanggal_transaksi');
             $table->integer('nominal');
             $table->string('status')->default('menunggu'); // pending, sukses, gagal
-
+            $table->date('berakhir');
             $table->timestamps();
         });
     }
