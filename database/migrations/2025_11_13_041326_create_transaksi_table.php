@@ -28,6 +28,7 @@ return new class extends Migration {
             $table->integer('nominal');
             $table->string('status')->default('menunggu'); // pending, sukses, gagal
             $table->date('berakhir');
+            $table->string('bukti_pembayaran')->nullable();
             $table->timestamps();
         });
     }
