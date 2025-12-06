@@ -149,19 +149,15 @@
                     </div>
                     <span id="modalStatus"
                           class="inline-flex items-center px-3 py-1 rounded-full text-[11px] font-semibold bg-slate-100 text-slate-700">
-                        {{-- Status diisi via JS --}}
                     </span>
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-2">
-
-                    {{-- Gambar --}}
                     <div id="modalGambar"
                          class="h-64 w-full rounded-2xl bg-slate-100 overflow-hidden flex items-center justify-center shadow-inner">
                         <span class="text-slate-400 text-sm">Tidak ada gambar</span>
                     </div>
 
-                    {{-- Detail --}}
                     <div class="flex flex-col justify-between space-y-4">
                         <div class="space-y-2">
                             <p class="text-sm text-gray-600">
@@ -202,8 +198,6 @@
     </div>
 </div>
 
-
-{{-- SCRIPT --}}
 <script>
 function openDetailModal(item) {
     document.getElementById('modalNomor').innerText = "Kamar " + item.nomor_kamar;

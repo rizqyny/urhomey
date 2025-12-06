@@ -36,7 +36,6 @@
         @endunless
     @endif
 
-
     <main class='grow container mx-auto pt-16 pb-8'>
         @yield('content')
     </main>

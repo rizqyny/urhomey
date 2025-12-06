@@ -5,7 +5,6 @@
 @section('content')
 <div class="min-h-screen bg-white from-slate-900 via-slate-950 to-slate-900 flex items-center justify-center px-4 py-16">
     <div class="w-full max-w-3xl">
-        {{-- Header --}}
         <div class="flex items-center justify-between mb-6">
             <div>
                 <p class="text-xs uppercase tracking-[0.2em] text-slate-400">Pengaturan Akun</p>
@@ -15,15 +14,12 @@
                 </p>
             </div>
         </div>
-
-        {{-- Alert --}}
         @if (session('success'))
             <div class="mb-5 rounded-xl border border-emerald-500/40 bg-emerald-500/10 px-4 py-3 text-sm text-emerald-200 shadow-lg shadow-emerald-900/40">
                 {{ session('success') }}
             </div>
         @endif
 
-        {{-- Card --}}
         <div
             class="relative overflow-hidden rounded-2xl border border-white/10 bg-white/5 shadow-[0_18px_60px_rgba(15,23,42,0.9)] backdrop-blur-xl">
             {{-- Decorative top border --}}
